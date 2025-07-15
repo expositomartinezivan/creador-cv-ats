@@ -37,7 +37,10 @@ const AiSuggestionButton: React.FC<AiSuggestionButtonProps> = ({ baseText, promp
     }
   };
 
-  if (!process.env.API_KEY) {
+  // Safely check for API key availability in a browser environment.
+  const hasApiKey = typeof process !== 'undefined' && process.env && process.env.API_KEY;
+
+  if (!hasApiKey) {
     return null; // Don't render the button if no API key is available
   }
 
@@ -46,8 +49,8 @@ const AiSuggestionButton: React.FC<AiSuggestionButtonProps> = ({ baseText, promp
       <button
         type="button"
         onClick={handleClick}
-        disabled={isLoading}
-        className="w-full flex items-center justify-center text-xs bg-blue-50 text-blue-700 font-semibold py-2 px-3 rounded-md hover:bg-blue-100 transition-colors duration-200 disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-wait"
+        disabled={isLoading || !baseText.trim()}
+        className="w-full flex items-center justify-center text-xs bg-blue-50 text-blue-700 font-semibold py-2 px-3 rounded-md hover:bg-blue-100 transition-colors duration-200 disabled:bg-gray-200 disabled:text-gray-500 disabled:cursor-not-allowed"
       >
         {isLoading ? (
           <>

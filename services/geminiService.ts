@@ -1,14 +1,19 @@
 
 import { GoogleGenAI } from "@google/genai";
 
-if (!process.env.API_KEY) {
-  console.warn("API_KEY environment variable not set. AI features will be disabled.");
+// Conditionally initialize the AI client to prevent a crash on load.
+// In a pure browser environment, `process.env.API_KEY` is not available
+// unless injected by a build tool. This change makes the app robust.
+const ai = (typeof process !== 'undefined' && process.env && process.env.API_KEY)
+  ? new GoogleGenAI({ apiKey: process.env.API_KEY })
+  : null;
+
+if (!ai) {
+    console.warn("API_KEY environment variable not set. AI features will be disabled.");
 }
 
-const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-
 export const generateAtsFriendlyText = async (prompt: string): Promise<string> => {
-  if (!process.env.API_KEY) {
+  if (!ai) {
     throw new Error("Gemini API key is not configured.");
   }
 

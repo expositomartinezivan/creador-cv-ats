@@ -1,4 +1,3 @@
-
 import React, { useState, useRef, useEffect } from 'react';
 import { ResumeData } from './types';
 import Editor from './components/Editor';
@@ -75,7 +74,8 @@ const App: React.FC = () => {
       scale: 2,
       useCORS: true,
       scrollY: -window.scrollY,
-      windowHeight: input.scrollHeight
+      windowHeight: input.scrollHeight,
+      backgroundColor: '#ffffff'
     }).then(canvas => {
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF({
@@ -117,10 +117,14 @@ const App: React.FC = () => {
         scriptsLoaded={scriptsLoaded}
       />
 
-      <main className="container mx-auto p-4 sm:p-6 lg:p-8 mt-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          <Editor data={resumeData} setData={setResumeData} />
-          <Preview data={resumeData} previewRef={previewRef} />
+      <main className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 mt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+          <div className="lg:col-span-3">
+            <Editor data={resumeData} setData={setResumeData} />
+          </div>
+          <div className="lg:col-span-2 lg:sticky lg:top-28">
+            <Preview data={resumeData} previewRef={previewRef} />
+          </div>
         </div>
       </main>
 

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Download, FileText } from 'lucide-react';
 
@@ -12,17 +11,19 @@ const Header: React.FC<HeaderProps> = ({ onDownload, isGenerating, scriptsLoaded
   const isDisabled = isGenerating || !scriptsLoaded;
   
   return (
-    <header className="bg-white shadow-md sticky top-0 z-20">
+    <header className="bg-white/80 shadow-md sticky top-0 z-20 backdrop-blur-sm">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           <div className="flex items-center">
             <FileText className="text-blue-600" size={28} />
-            <h1 className="text-xl md:text-2xl font-bold text-gray-800 ml-2">Creador de CV <span className="text-blue-600">ATS-Friendly</span></h1>
+            <h1 className="text-xl md:text-2xl font-bold text-gray-800 ml-3">
+              Creador de CV <span className="bg-gradient-to-r from-blue-600 to-cyan-500 bg-clip-text text-transparent">ATS-Friendly</span>
+            </h1>
           </div>
           <button
             onClick={onDownload}
             disabled={isDisabled}
-            className="flex items-center bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-300 disabled:bg-blue-300 disabled:cursor-not-allowed"
+            className="flex items-center bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-all duration-300 disabled:bg-blue-300 disabled:cursor-not-allowed shadow-sm hover:shadow-md disabled:shadow-none"
           >
             {isDisabled ? (
               <>
